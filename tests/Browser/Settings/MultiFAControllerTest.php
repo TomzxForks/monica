@@ -129,8 +129,8 @@ class MultiFAControllerTest extends DuskTestCase
                     ->scrollTo('verify')
                     ->press('verify');
 
-            $this->assertTrue($this->hasDivAlert($browser));
-            $divalert = $this->getDivAlert($browser);
+            $this->assertTrue($browser->hasDivAlert());
+            $divalert = $browser->getDivAlert();
             $this->assertContains('alert-danger', $divalert->getAttribute('class'));
             $this->assertContains('Two Factor Authentication', $divalert->getText());
         });
@@ -171,8 +171,8 @@ class MultiFAControllerTest extends DuskTestCase
             ->press('verify')
             ->on(new SettingsSecurity);
 
-        $this->assertTrue($this->hasDivAlert($browser));
-        $divalert = $this->getDivAlert($browser);
+        $this->assertTrue($browser->hasDivAlert());
+        $divalert = $browser->getDivAlert();
         $this->assertContains('alert-success', $divalert->getAttribute('class'));
         $this->assertContains('Two Factor Authentication', $divalert->getText());
 
@@ -211,8 +211,8 @@ class MultiFAControllerTest extends DuskTestCase
                     ->type('otp', '000000')
                     ->press('verify');
 
-            $this->assertTrue($this->hasDivAlert($browser));
-            $divalert = $this->getDivAlert($browser);
+            $this->assertTrue($browser->hasDivAlert());
+            $divalert = $browser->getDivAlert();
             $this->assertContains('alert-danger', $divalert->getAttribute('class'));
             $this->assertContains('The two factor authentication has failed.', $divalert->getText());
         });
@@ -247,7 +247,7 @@ class MultiFAControllerTest extends DuskTestCase
                     ->type('otp', $one_time_password)
                     ->press('verify');
 
-            $this->assertFalse($this->hasDivAlert($browser));
+            $this->assertFalse($browser->hasDivAlert());
             $browser->assertPathIs('/validate2fa');
         });
     }
@@ -280,8 +280,8 @@ class MultiFAControllerTest extends DuskTestCase
                     ->scrollTo('verify')
                     ->press('verify');
 
-            $this->assertTrue($this->hasDivAlert($browser));
-            $divalert = $this->getDivAlert($browser);
+            $this->assertTrue($browser->hasDivAlert());
+            $divalert = $browser->getDivAlert();
             $this->assertContains('alert-success', $divalert->getAttribute('class'));
             $this->assertContains('Two Factor Authentication', $divalert->getText());
         });
@@ -313,8 +313,8 @@ class MultiFAControllerTest extends DuskTestCase
                     ->scrollTo('verify')
                     ->press('verify');
 
-            $this->assertTrue($this->hasDivAlert($browser));
-            $divalert = $this->getDivAlert($browser);
+            $this->assertTrue($browser->hasDivAlert());
+            $divalert = $browser->getDivAlert();
             $this->assertContains('alert-danger', $divalert->getAttribute('class'));
             $this->assertContains('Two Factor Authentication', $divalert->getText());
         });

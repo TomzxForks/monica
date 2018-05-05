@@ -2,8 +2,8 @@
 
 namespace Tests;
 
+use Tests\Browser\Browser;
 use Tests\Traits\SignIn;
-use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
@@ -24,24 +24,6 @@ abstract class DuskTestCase extends BaseTestCase
         if (env('SAUCELABS') != '1') {
             static::startChromeDriver();
         }
-    }
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        /*
-         * Macro scrollTo to scroll down/up, until the selector is visible
-         */
-        Browser::macro('scrollTo', function ($selector) {
-            //$element = $this->element($selector);
-            //$this->driver->executeScript("arguments[0].scrollIntoView(true);",[$element]);
-
-            $selectorby = $this->resolver->format($selector);
-            $this->driver->executeScript("$(\"html, body\").animate({scrollTop: $(\"$selectorby\").offset().top}, 0);");
-
-            return $this;
-        });
     }
 
     /**
@@ -65,18 +47,12 @@ abstract class DuskTestCase extends BaseTestCase
         }
     }
 
-    public function hasDivAlert(Browser $browser)
+    /**
+     * @param \Facebook\WebDriver\Remote\RemoteWebDriver $driver
+     * @return \Tests\Browser\Browser
+     */
+    public function newBrowser($driver)
     {
-        $res = $browser->elements('alert');
-
-        return count($res) > 0;
-    }
-
-    public function getDivAlert(Browser $browser)
-    {
-        $res = $browser->elements('alert');
-        if (count($res) > 0) {
-            return $res[0];
-        }
+        return new Browser($driver);
     }
 }
